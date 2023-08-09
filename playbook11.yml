@@ -1,0 +1,36 @@
+
+---
+- name: Variables lesson 11
+  hosts: all
+  become: yes
+
+  vars:
+    message1: hello
+    message2: world
+    secret: ASDQWQWEQDSAD
+
+  tasks:
+
+  - name: Print secret variable
+    debug:
+      var: secret
+
+  - debug:
+      msg: "secret word: {{ secret}}"
+
+  - debug:
+      msg: "Owner this server -->{{ owner }}<--"
+
+  - set_fact: full_message="{{ message1 }} {{ message2 }} from {{ owner }}"
+
+  - debug:
+      var: full_message
+
+  - debug:
+      var: ansible_distribution
+
+  - shell: uptime
+    register: results
+
+  - debug:
+      var: results.stdout

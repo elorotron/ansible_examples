@@ -1,0 +1,25 @@
+
+---
+- name: Ansible19
+  hosts: all
+  any_errors_fatal: true #любая ошибка критична и скрип не продолжится
+  become: yes
+
+
+
+  tasks:
+  - name: TaskN1
+    apt: name=treeeeeeeeeee state=latest
+    ignore_errors: yes #игнорирует ошибки позволяя продолжить 
+
+  - name: TaskN2
+    shell: cat /home/file1.txt
+    register: result #сохраняет результат в переменную result
+#    failed_when: "'world' in result.stdout" #Ошибка когда находит world в пременной result
+#    failed_when: result.rc == 0 #когда return code = 0 (успешно) выдает ошибку
+
+  - debug:        #Выводит результат переменной result в консоль терминала
+      var: result
+
+  - name: TaskN3
+    shell: echo Bubmimba
